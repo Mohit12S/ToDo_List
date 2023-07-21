@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title%></title>
+    <!-- Link of Css File in Assets Folder -->
+    <link rel="stylesheet" href="/css/home.css">
+    <!-- Link For Font Awesome -->
+    <script src="https://kit.fontawesome.com/0a226477a4.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="container">
+        <h1 class="text-center header">TODO APP</h1>
+        <!-- Creating a Form to Send Data to Server/Database -->
+        <form action="/create-list" method="post" id="container-form">
+            <p class="p-heading b-top">Description</p>
+            <!-- TextArea for Description -->
+            <textarea name="Description" id="" cols="100" rows="3" placeholder="What do you need to do?" class="b-bottom" required></textarea>
+            
+            <!-- Task Container Containing Tasks and Date -->
+            <div class="task-container b-bottom">
+
+                <!-- Choosing category of tasks -->
+                <div class="category">
+                    <label for="categories" class="h-heading">Choose a category:</label>
+    
+                    <select name="categories" id="categories" required >
+                    <option value="Personal">Personal</option>
+                    <option value="Others">Others</option>
+                    <option value="School">School</option>
+                    <option value="Work">Work</option>
+                    <option value="Cleaning">Cleaning</option>
+                    </select>
+                </div>
+                
+                <!-- Selecting Due Date -->
+                <div class="date" >
+                    <label for="birthday" class="h-heading">DueDate:</label>
+                    <input type="date" id="birthday" name="DueDate" required>
+                </div>
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="submit" id="sub">
+                <i class="fa-solid fa-plus"></i>
+                <span>Add Task</span>
+            </button>
+        </form>
+
+        <div>
+            <button type="button" class="delete-btn">
+                <a href="/delete-task">Delete</a>
+            </button>
+        </div>
+
+        <div class="ToDoList-container">
+            <ul class="ul-list">
+                <% for(let i of task_list){ %>
+                    <li>
+                        <div class="list-container">
+                            <div class="first">
+                                <a href="/deleteIt/?id=<%= i._id %>">
+                                    <input type="checkbox" name="delete" id="<%= i._id %>">
+                                </a>
+                                
+                            </div>
+                             
+                             <div class="second">
+                                 <p><%= i.Description%></p>
+                                 <span><i class="fa-solid fa-calendar-days"></i></span>
+                                 <span><%= i.DueDate%></span>
+                             </div>
+         
+                             <div class="third">
+                                 <button class="btn-color"><%= i.categories%></button>
+                             </div>
+                        </div> 
+                    </li>
+                <% } %>   
+            </ul>
+        </div>
+    </div>
+
+    <script src="/js/home.js"></script>
+</body>
+</html>
